@@ -1,0 +1,76 @@
+{
+  "Path": {
+    "api": "/api",
+    "database": "/database",
+    "download": "/mobame",
+    "log": "/log",
+    "telegram": "/telegram",
+    "temp": "/temp"
+  },
+  "SubsPath": {
+    "groups": "/groups",
+    "members": "/members",
+    "thumbnail": "/thumbnail",
+    "phone_image": "/phone_image",
+    "nogizaka46": "/nogizaka46",
+    "sakurazaka46": "/sakurazaka46",
+    "hinatazaka46": "/hinatazaka46"
+  },
+  "Timezone": {
+    "TZ": "Asia/jakarta"
+  },
+  "Databases": {
+    "groups": "groups",
+    "members": "members",
+    "thumbnail": "thumbnail",
+    "phone_image": "phone_image"
+  },
+  "Telegram_Config": {
+    "service": true,
+    "servicemode": "debug",
+    "botdebugtoken": "",
+    "botfinaltoken": "",
+    "ownerid": ,
+    "botdebuggroup": ,
+    "botfinalgroup": ,
+    "prefix": "\u3007\u3007"
+  },
+  "Sakamichi_App": {
+    "nogizaka46": {
+      "refresh_token": "",
+      "access_token": "",
+      "groups": [],
+      "members": [],
+      "subscribed_members": [],
+      "telegram_services": {
+        "kanjiname": "\u4e43\u6728\u574246",
+        "services": true,
+        "members": []
+      }
+    },
+    "sakurazaka46": {
+      "refresh_token": "",
+      "access_token": "",
+      "groups": [],
+      "members": [],
+      "subscribed_members": [],
+      "telegram_services": {
+        "kanjiname": "\u6afb\u574246",
+        "services": true,
+        "members": []
+      }
+    },
+    "hinatazaka46": {
+      "refresh_token": "",
+      "access_token": "",
+      "groups": [],
+      "members": [],
+      "subscribed_members": [],
+      "telegram_services": {
+        "kanjiname": "\u65e5\u5411\u574246",
+        "services": true,
+        "members": []
+      }
+    }
+  }
+}
