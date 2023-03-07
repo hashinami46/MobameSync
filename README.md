@@ -1,32 +1,31 @@
 <div align="center">
   <h1><strong>MobameSync</strong></h1>
-<div>
+</div>
 
 ## 説明
-
-このアップリは`colmsg`に触発されています。 
-このアップリの目的は坂道グループシリーズのモバメから
-メッセージを存在します。 それだけではなく、`Mobamesync`も
-テレグラムにメッセージを同期できます。 
+このアプリは colmsg に触発されています。
+このアプリの目的は、坂道グループシリーズのモバメから
+メッセージを取得することです。さらに、MobameSyncは
+テレグラムにメッセージを同期することもできます。
 
 ## 前提条件
 
-1. python3とpip
-```bash
-apt install python3 python-pip
-```
+1. Python3とpipがインストールされていること。
+  ```shell script
+  apt install python3 python-pip
+  ```
 
-2. レポジトリをクロンして
+2. リポジトリをクローンすること。
   ```shell script
   git clone https://github.com/hashinami46/MobameSync.git
   ```
 
-3. 必要なものをインストールして
+3. 必要なライブラリをインストールすること。
   ```shell script 
   pip install -r requirements.txt
   ```
 
-4. `config.json`にリフレッシュトーケンを追加して
+4. `config.json`にリフレッシュトークンを追加すること。
   ```shell script 
   ...
   "nogizaka46": {
@@ -35,7 +34,7 @@ apt install python3 python-pip
   ...
   ```
 
-5. テレグラムに同期したいなら`config.json`にこのような例を編集しなさい。
+5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   ```shell script
   ...
   "Telegram_Config": {
