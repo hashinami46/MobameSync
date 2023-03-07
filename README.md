@@ -12,9 +12,9 @@
 ## 前提条件
 
 1. python3とpip
-  ```shell script
-  apt install python3 python-pip
-  ```
+```shell script
+apt install python3 python-pip
+```
 
 2. レポジトリをクロンして
   ```shell script
