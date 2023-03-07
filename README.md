@@ -12,7 +12,7 @@
 ## 前提条件
 
 1. python3とpip
-```shell script
+```bash
 apt install python3 python-pip
 ```
 
