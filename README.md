@@ -11,8 +11,8 @@
 
 ## 特徴
 
-•:white_check_mark: rootは必要ではありまでん\n
-•:white_check_mark: Python3をサポートするすべての端末で実行できます
+-:white_check_mark: rootは必要ではありまでん
+-:white_check_mark: Python3をサポートするすべての端末で実行できます
 全てのメディアが取得できます
 
 ## 前提条件
@@ -40,6 +40,7 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
+  リフレッシュトケンを取得する方法は![こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   ```shell script
@@ -56,7 +57,7 @@
   }
   ...
   ```
-  ### 説明
+ 
   - service (boolean)
     既定値は `true`
     テレグラムサービスをトグルすること。
