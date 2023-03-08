@@ -11,8 +11,8 @@
 
 ## 特徴
 
-•✅ rootは必要ではありまでん
-•✅ Python3をサポートするすべての端末で実行できます
+:white_check_mark: rootは必要ではありまでん
+:white_check_mark: Python3をサポートするすべての端末で実行できます
 全てのメディアが取得できます
 
 ## 前提条件
@@ -56,13 +56,32 @@
   }
   ...
   ```
+  ### 説明
+  - service (boolean)
+    既定値は `true`
+    テレグラムサービスをトグルすること。
+  - servicemode (string)
+    既定値は `prod`
+    `prod`とか`debug`
+  - botdebugtoken (string)
+    `debug`をするとこの欄が選択されます。
+  - botfinaltoken (string)
+    `prod`をするとこの欄が選択されます。
+  - ownerid (integer)
+    ここにテレグラムIDを追加すること。
+  - botdebuggroup (integer)
+    `debug`をするとこの欄が選択されます。
+  - botfinalgroup (integer)
+    `prod`をするとこの欄が選択されます。
+  - prefix (string)
+    既定値は`\u3007\u3007`
+    あなたの名前とかツイッターにあるような妄想。
 
-## 使い方
+## :rocket:使い方
 
 **先ずは**データベースを必ず更新してください。
   ```shell script
   python3 mobame.py -s update
-  python3 mobame.py -s dl -g nogizaka46 -m 柴田柚菜
   ```
   
 その後、メッセージがダウンロードできます。

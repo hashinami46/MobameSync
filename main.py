@@ -16,6 +16,9 @@ hinatodaymessages = []
 hinapastmessages  = []
 hinacustmessages  = []
 
+resultokdl = []
+resultnokdl = []
+
 # MAIN PROGRAM
 class Main:
   def __init__(self, apihost, headers, accesstoken, refreshtoken, plainreftoken, groups):
@@ -41,14 +44,15 @@ class Main:
             json.dump(config, configfile, indent=2)
             configfile.truncate()
             logging.info(accesstokenupdated.replace('%%%', self.groups))
-        else:
+        elif browser.status_code == 400:
           logging.error(refreshtokendenied.replace('%%%', self.groups))
-          logging.error(f"\n \
-          ===============\n \
+          logging.error(remove_indent(f"\n \
+          {'=' * scrwidth}\n \
           {browser.url}\n \
           {browser.status_code}\n \
           {browser.json()}\n \
-          ===============")
+          {'=' * scrwidth}"))
+          return 'stop'
 
   def update_access_token_in_headers(self, logger=True):
     if self.groups in sakamichigroups:
@@ -75,11 +79,11 @@ class Main:
         if browser.status_code != 200:
           logging.error(accesstokenexpired.replace('%%%', self.groups))
           logging.error(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.url}\n \
           {browser.status_code}\n \
           {browser.json()}\n \
-          ===============")
+          {'=' * scrwidth}")
         else:
           logging.info(accesstokenvalid.replace('%%%', self.groups))
     if self.groups == 'nogizaka46':
@@ -89,9 +93,9 @@ class Main:
     elif self.groups == 'hinatazaka46':
       check(Hinatazaka.update_access_token_in_headers)
   
-  def get_groups_or_members_lists(self, choice, xchoice):
+  def get_groups_or_members_lists(self, choice, xchoice, logger=True):
     def getlist(addacc, updateacc, refresh):
-      addacc()
+      addacc(logger=False)
       browser = httpx.get(url = SecurePrefix + self.apihost + ApiVersion + choice, headers = self.headers)
       if browser.status_code == 200:
         with open(configdir, 'r+') as configfile:
@@ -104,14 +108,15 @@ class Main:
           logging.info(gmlistdbupdated.replace('%%%0', xchoice).replace('%%%', self.groups))
         return
       else:
-        logging.info(accesstokenexpired.replace('%%%', self.groups))
-        logging.error(f"\n \
-        ===============\n \
-        {browser.status_code}\n \
-        {browser.url}\n \
-        {browser.headers}\n \
-        {browser.json()}\n \
-        ===============")
+        if logger:
+          logging.info(accesstokenexpired.replace('%%%', self.groups))
+          logging.error(remove_indent(f"\n \
+          {'=' * scrwidth}\n \
+          {browser.status_code}\n \
+          {browser.url}\n \
+          {browser.headers}\n \
+          {browser.json()}\n \
+          {'=' * scrwidth}"))
         updateacc()
         refresh(choice, xchoice)
     if self.groups == 'nogizaka46':
@@ -176,30 +181,30 @@ class Main:
               tempmessages.append(message)
         elif browser.status_code == 401:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
           await url_streamer(url, addtoken, refresher, tempmessages)
         elif browser.status_code == 400:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           logging.error(remove_indent(f"\n \
           CHECK YOUR REFRESH TOKEN!"))
           return 
         elif browser.status_code == 429:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           time.sleep(300)
           await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
           await url_streamer(url, addtoken, refresher, tempmessages)
@@ -236,30 +241,30 @@ class Main:
               tempmessages.append(message)
         elif browser.status_code == 401:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
           await url_streamer(url, addtoken, refresher, tempmessages)
         elif browser.status_code == 400:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           logging.error(remove_indent(f"\n \
           CHECK YOUR REFRESH TOKEN!"))
           return 
         elif browser.status_code == 429:
           logging.error(remove_indent(f"\n \
-          ===============\n \
+          {'=' * scrwidth}\n \
           {browser.status_code}\n \
           {browser.url}\n \
           {browser.json()}\n \
-          ==============="))
+          {'=' * scrwidth}"))
           time.sleep(300)
           await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
           await url_streamer(url, addtoken, refresher, tempmessages)
@@ -284,42 +289,32 @@ class Main:
     elif self.groups == 'hinatazaka46':
       asyncio.run(executor(Hinatazaka.update_access_token_in_headers, Hinatazaka.update_access_token_in_JSON, hinatodaymessages))
       
-  def custmessage_lister(self, memlist, datelist):
+  def custmessage_lister(self, memlist, datelist, logger=False, mode="terminal"):
     async def url_streamer(url, addtoken, refresher, tempmessages):
       async with httpx.AsyncClient(timeout=60) as client:
         await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), addtoken, False)
         browser = await client.get(url, headers=self.headers)
         if browser.status_code == 200:
           messages = browser.json()['messages']
-          for message in messages:
-            if not any(message['id'] == tempmessage['id'] for tempmessage in tempmessages):
-              tempmessages.append(message)
+          if messages:
+            for message in messages:
+              if not any(message['id'] == tempmessage['id'] for tempmessage in tempmessages):
+                tempmessages.append(message)
         elif browser.status_code == 401:
-          logging.error(remove_indent(f"\n \
-          ===============\n \
-          {browser.status_code}\n \
-          {browser.url}\n \
-          {browser.json()}\n \
-          ==============="))
-          await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
-          await url_streamer(url, addtoken, refresher, tempmessages)
+          if logger:
+            browser_errlog(browser)
+          effort = await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
+          if effort == 'stop':
+            return
+          elif effort != 'stop':
+            await url_streamer(url, addtoken, refresher, tempmessages)
         elif browser.status_code == 400:
-          logging.error(remove_indent(f"\n \
-          ===============\n \
-          {browser.status_code}\n \
-          {browser.url}\n \
-          {browser.json()}\n \
-          ==============="))
-          logging.error(remove_indent(f"\n \
-          CHECK YOUR REFRESH TOKEN!"))
+          if logger:
+            browser_errlog(browser)
           return
         elif browser.status_code == 429:
-          logging.error(remove_indent(f"\n \
-          ===============\n \
-          {browser.status_code}\n \
-          {browser.url}\n \
-          {browser.json()}\n \
-          ==============="))
+          if logger:
+            browser_errlog(browser)
           time.sleep(300)
           await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), refresher)
           await url_streamer(url, addtoken, refresher, tempmessages)
@@ -331,11 +326,25 @@ class Main:
     async def url_creator():
       urls = []
       urls.clear()
-      links = [f"{SecurePrefix}{self.apihost}{ApiVersion}{GroupsPath}/{memidformatter(mem, self.groups)}{TimelinePath}?updated_from={dateformatter(date).strftime('%Y-%m-%d' + 'T00:00:00Z').replace(':','%3A')}&order=asc" for mem in memlist for date in datelist]
-      for link in links:
-        realmemid = link.split('?')[0].split('/')[-2]
-        if realmemid != 'None':
-          urls.append(link)
+      wrongmembernamelist = []
+      wrongmembernamelist.clear
+      for mem in memlist:
+        links = [f"{SecurePrefix}{self.apihost}{ApiVersion}{GroupsPath}/{memidformatter(mem, self.groups)}{TimelinePath}?updated_from={dateformatter(date).strftime('%Y-%m-%d' + 'T00:00:00Z').replace(':','%3A')}&order=asc" for date in datelist]
+        for link in links:
+          realmemid = link.split('?')[0].split('/')[-2]
+          if realmemid != 'None':
+            urls.append(link)
+          else:
+            if mem.replace(' ', '') not in wrongmembernamelist:
+              wrongmembernamelist.append(mem.replace(' ', ''))
+      if wrongmembernamelist:
+        if mode == 'terminal':
+          print(wrongmembername)
+          for x in wrongmembernamelist:
+            print(f" - {x}")
+          print('=' * scrwidth)
+        elif mode == 'telegram':
+          pass
       return urls
     if self.groups == 'nogizaka46':
       asyncio.run(executor(Nogizaka.update_access_token_in_headers, Nogizaka.update_access_token_in_JSON, nogicustmessages))
@@ -344,7 +353,7 @@ class Main:
     elif self.groups == 'hinatazaka46':
       asyncio.run(executor(Hinatazaka.update_access_token_in_headers, Hinatazaka.update_access_token_in_JSON, hinacustmessages))
   
-  def custmessage_downloader(self, memlist, datelist, dlpath=f'{downloaddir}'):
+  def custmessage_downloader(self, memlist, datelist, dlpath=f'{downloaddir}', logger=True, mode="telegram"):
     async def download(url, folder, filename):
       async with httpx.AsyncClient(timeout=None) as client:
         browser = await client.get(url)
@@ -358,11 +367,12 @@ class Main:
       create_notexist_dir(folder, logger=False)
       if not os.path.exists(filepath):
         await download(url, folder, filename)
-        logging.info(f"{downloadsuccessv2.replace('%file%', filename)}")
+        resultokdl.append('ok')
       else:
-        logging.info(f"{alreadydownloaded.replace('%%%', filename)}")
+        pass
+        resultnokdl.append('nok')
     async def tasker(getcustmessages, custmessages):
-      await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), getcustmessages, memlist, datelist)
+      await asyncio.get_running_loop().run_in_executor(ThreadPoolExecutor(), getcustmessages, memlist, datelist, logger, mode)
       tasks = []
       for messages in custmessages:
         for members in config['Sakamichi_App'][self.groups]['subscribed_members']:
@@ -371,7 +381,10 @@ class Main:
             date = messages['updated_at'].split('T')[0].replace('-','.')
             membername = members['name'].replace(' ','')
             tasks.append(checker(membername, url, date))
-      await asyncio.gather(*tasks)
+      if tasks:
+        with PBAR as progress:
+          for task in progress.track(tasks):
+            await task
     if self.groups == 'nogizaka46':
       asyncio.run(tasker(Nogizaka.custmessage_lister, nogicustmessages))
     elif self.groups == 'sakurazaka46':
@@ -422,6 +435,9 @@ Hinatazaka = Main(hinaApi, HinaPlainHeaders, HinaAccessToken, HinaRefreshToken, 
 # <Groupname>.custmessage_lister([listmember],[listdate]) 
 # <Groupname>.custmessage_downloader([listmember],[listdate],dlpath) #dlpath default './mobame'
 # <Groupname>.teleservice_updater()
+
+#Hinatazaka.get_groups_or_members_lists(GroupsPath, groups)
+#Hinatazaka.download_thumbnail_or_phoneimage_from_groups_or_members(thumbnail, groups)
 
 #fromdate  = datetime.datetime.strptime("2023-02-25", "%Y-%m-%d")
 #enddate   = datetime.datetime.strptime("2023-03-02", "%Y-%m-%d")
