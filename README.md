@@ -3,11 +3,10 @@
   
   坂道シリーズモバメダウンローダ
   
-  ![demo](https://media.discordapp.net/attachments/732022235308752958/1082980847973576785/ezgif-3-01483d3c78.gif)
 </div>
 
 ## 説明
-
+![demo](https://github.com/hashinami46/MobameSync/blob/84e7808cc87ec4bebf25d88998ca0e073e6ffd02/demo.gif)
 このアプリは colmsg に触発されています。
 このアプリの目的は、坂道グループシリーズのモバメから
 メッセージを取得することです。さらに、MobameSyncは
