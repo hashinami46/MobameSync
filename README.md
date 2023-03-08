@@ -1,5 +1,6 @@
 <div align="center">
   <h1><strong>MobameSync</strong></h1>
+  ![demo](https://media.discordapp.net/attachments/732022235308752958/1082980847973576785/ezgif-3-01483d3c78.gif)
 </div>
 
 ## 説明
@@ -10,9 +11,9 @@
 テレグラムにメッセージを同期することもできます。
 
 ## 特徴
-:ballot_box_with_check:rootは必要ではありまでん
-:ballot_box_with_check:Python3をサポートするすべての端末で実行できます
-全てのメディアが取得できます
+* ✅ rootは必要ではありまでん
+* ✅ Python3をサポートするすべての端末で実行できます
+* ✅ 全てのメディアが取得できます
 
 ## 前提条件
 
@@ -23,9 +24,8 @@
 
 2. リポジトリをクローンして、virtualenvを作ること。
   ```shell script
-  mkdir ~/MobameSync
-  cd ~/MobameSync
   git clone https://github.com/hashinami46/MobameSync.git
+  cd ~/MobameSync
   virtualenv venv
   source venv/bin/activate
   ```
@@ -43,7 +43,7 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
-  リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
+    リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   ```shell script
@@ -104,4 +104,17 @@
   ```shell script
   python3 -s check -g 乃木坂46
   ```
+
+## ライセンス
+
+このアプリケーションはオープンソースで提供されており、現状のままで提供されています。
+作者は、このアプリケーションによって発生したあらゆる損害について責任を負いません。
+また、このアプリケーションを使用することによって、利用者が任意のリスクを負うことに同意するものとします。
+
+このアプリケーションは MIT ライセンスで提供されています。
+
+## 注意事項
+アプリの利用規約 第8条（禁止事項）に以下の項目があるため注意してください。
+- (16) 当社が指定するアクセス方法以外の手段で本サービスにアクセスし、またはアクセスを試みる行為
+- (17) 自動化された手段（クローラおよび類似の技術を含む）を用いて本サービスにアクセスし、またはアクセスを試みる行為
   
