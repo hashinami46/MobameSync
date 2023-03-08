@@ -11,6 +11,7 @@ import asyncio
 import httpx
 import telebot
 import tabulate
+import shutil
 
 # Importing Section 
 from pathlib import Path
@@ -24,8 +25,28 @@ from telebot.callback_data import CallbackData, CallbackDataFilter
 from telebot import custom_filters, types
 from keyboa import Keyboa
 from keyboa import Button
+from rich.progress import (
+    BarColumn,
+    MofNCompleteColumn,
+    Progress,
+    TextColumn,
+    TimeElapsedColumn,
+    TimeRemainingColumn,
+)
+
+# LOADING BAR CONFIG
+PBAR = Progress(
+    TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    BarColumn(),
+    MofNCompleteColumn(),
+    TextColumn("•"),
+    TimeElapsedColumn(),
+    TextColumn("•"),
+    TimeRemainingColumn(),
+)
 
 ROOT_DIR = Path(__file__).parent.parent
+scrwidth, _ = shutil.get_terminal_size()
 
 # DATABASE CONFIG
 configdir   = f"{ROOT_DIR}/database/config.json"
@@ -61,10 +82,11 @@ logging.basicConfig(
   format   = "%(asctime)s - %(levelname)s - %(message)s",
   handlers = [
         logging.handlers.TimedRotatingFileHandler(
-          filename  = f"{ROOT_DIR}{logdir}/{datetime.datetime.now().strftime('%Y-%m-%d.log')}",
-          when      = 'midnight',
-          encoding  = None,
-          delay     = 0  
+          filename    = f"{ROOT_DIR}{logdir}/logging.log",
+          when        = 'midnight',
+          backupCount = 30,
+          encoding    = None,
+          delay       = 0,
         ),
         logging.StreamHandler(sys.stdout)
     ]
@@ -81,6 +103,7 @@ thumbnail       = config['Databases']['thumbnail']
 phone_image     = config['Databases']['phone_image']
 
 # TIMEZONE CONFIG
+NOW = datetime.datetime.now()
 UTC = datetime.datetime.now(timezone('UTC'))
 WIB = UTC.astimezone(timezone(config['Timezone']['TZ']))
 YST = WIB - datetime.timedelta(days=1)
@@ -103,6 +126,7 @@ alreadydownloaded      = 'File %%% telah diunduh!'
 foldercreated          = 'Folder %%% berhasil dibuat!'
 subscriptionupdated    = 'Daftar member %%% yang disubscribe berhasil diupdate!'
 teleserviceupdated     = 'Database service telegram %group% diupdate'
+wrongmembername        = 'Ups, sepertinya nama member yang anda masukkan di bawah ini salah!'
 
 # BASIC FUNCTION CONFIG
 def create_notexist_dir(dirpath, logger=True):
@@ -128,6 +152,19 @@ def remove_indent(longtext):
   lines  = [line.strip() for line in lines]
   result = '\n'.join(lines)
   return result
+def browser_errlog(value):
+  logging.error(remove_indent(f"\n \
+  {'=' * scrwidth}\n \
+  {value.status_code}\n \
+  {value.url}\n \
+  {value.json()}\n \
+  {'=' * scrwidth}"))
+def date_list(fromdate, todate):
+  fromdate  = datetime.datetime.strptime(fromdate, "%Y-%m-%d")
+  enddate   = datetime.datetime.strptime(todate, "%Y-%m-%d")
+  daterange = [fromdate + datetime.timedelta(days=i) for i in range(0, (enddate-fromdate).days+1)]
+  datestr   = [d.strftime('%Y-%m-%d') for d in daterange]
+  return datestr
   
 # TELEGRAM CONFIG
 service       = config['Telegram_Config']['service']
@@ -153,22 +190,22 @@ def telechatid():
     return botfinalgroup
 def telemessagelogger(message):
   logging.info(remove_indent(f"\n \
-  ==============================\n \
+  {'=' * scrwidth}\n \
   - ID Pengirim : {message.from_user.id}\n \
   - UN Pengirim : {message.from_user.username}\n \
   - ID Chat     : {message.chat.id}\n \
   - Tipe Chat   : {message.chat.type}\n \
   - Pesan       : {message.text}\n \
-  =============================="))
+  {'=' * scrwidth}"))
   return
 def telecalllogger(call):
   logging.info(remove_indent(f"\n \
-  ==============================\n \
+  {'=' * scrwidth}\n \
   - ID Chat     : {call.message.chat.id}\n \
   - Tipe Chat   : {call.message.chat.type}\n \
   - UN Pengirim : {call.message.chat.username}\n \
   - Call Key    : {call.data}\n \
-  =============================="))
+  {'=' * scrwidth}"))
   return
 def report_message(message):
   text = remove_indent(f"\n \
