@@ -11,7 +11,7 @@
 
 ## 特徴
 
-•:white_check_mark: rootは必要ではありまでん
+•:white_check_mark: rootは必要ではありまでん\n
 •:white_check_mark: Python3をサポートするすべての端末で実行できます
 全てのメディアが取得できます
 
