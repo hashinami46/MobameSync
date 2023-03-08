@@ -10,20 +10,24 @@
 テレグラムにメッセージを同期することもできます。
 
 ## 特徴
-- :white_check_mark:rootは必要ではありまでん
-- :white_check_mark:Python3をサポートするすべての端末で実行できます
+:ballot_box_with_check:rootは必要ではありまでん
+:ballot_box_with_check:Python3をサポートするすべての端末で実行できます
 全てのメディアが取得できます
 
 ## 前提条件
 
 1. Python3とpipがインストールされていること。
   ```shell script
-  apt install python3 python-pip
+  apt install python3 python-pip python-virtualenv
   ```
 
-2. リポジトリをクローンすること。
+2. リポジトリをクローンして、virtualenvを作ること。
   ```shell script
+  mkdir ~/MobameSync
+  cd ~/MobameSync
   git clone https://github.com/hashinami46/MobameSync.git
+  virtualenv venv
+  source venv/bin/activate
   ```
 
 3. 必要なライブラリをインストールすること。
@@ -39,7 +43,7 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
-  リフレッシュトケンを取得する方法は![こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
+  リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   ```shell script
@@ -77,22 +81,27 @@
     既定値は`\u3007\u3007`
     あなたの名前とかツイッターにあるような妄想。
 
-## :rocket:使い方
+## 使い方
 
 **先ずは**データベースを必ず更新してください。
   ```shell script
   python3 mobame.py -s update
   ```
 その後、メッセージがダウンロードできます。
-  • もし、「池田瑛紗」からのメッセージを取得なら
+  - もし、「池田瑛紗」からのメッセージを取得なら
   ```shell script
   python3 -s dl -g 乃木坂46 -m 池田瑛紗 -d 2022-03-08
   ```
-  • 2つ以上もできます
+  - 2つ以上もできます
   ```shell script
   python3 -s dl -g 乃木坂46 -m 池田瑛紗 川崎桜 -d 2022-03-08
   ```
-  • もし「2023-03-01」から「2023-03-10」までメッセージを取得したいなら
+  - もし、「2023-03-01」から「2023-03-10」までメッセージを取得したいなら
   ```shell script
   python3 -s dllist -g 乃木坂46 -m 池田瑛紗 -fd 2022-03-01 -td 2022-03-10
   ```
+  - 購読を見たいなら
+  ```shell script
+  python3 -s check -g 乃木坂46
+  ```
+  
