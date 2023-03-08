@@ -45,7 +45,7 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
-    リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
+  リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   ```shell script
