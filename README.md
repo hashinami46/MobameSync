@@ -1,10 +1,10 @@
 <div align="center">
   <h1><strong>MobameSync</strong></h1>
-  ![demo](https://media.discordapp.net/attachments/732022235308752958/1082980847973576785/ezgif-3-01483d3c78.gif)
 </div>
 
 ## 説明
 
+![demo](https://media.discordapp.net/attachments/732022235308752958/1082980847973576785/ezgif-3-01483d3c78.gif)
 このアプリは colmsg に触発されています。
 このアプリの目的は、坂道グループシリーズのモバメから
 メッセージを取得することです。さらに、MobameSyncは
