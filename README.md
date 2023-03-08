@@ -3,10 +3,17 @@
 </div>
 
 ## 説明
+
 このアプリは colmsg に触発されています。
 このアプリの目的は、坂道グループシリーズのモバメから
 メッセージを取得することです。さらに、MobameSyncは
 テレグラムにメッセージを同期することもできます。
+
+## 特徴
+
+•✅ rootは必要ではありまでん
+•✅ Python3をサポートするすべての端末で実行できます
+全てのメディアが取得できます
 
 ## 前提条件
 
@@ -30,7 +37,7 @@
   ...
   "nogizaka46": {
       "refresh_token": "<YOUR REFRESH TOKEN HERE>",
-      "access_token": "<YOU CAN KEEP IT EMPTY>",
+      "access_token": "<you can leave it empty>",
   ...
   ```
 
@@ -51,3 +58,23 @@
   ```
 
 ## 使い方
+
+**先ずは**データベースを必ず更新してください。
+  ```shell script
+  python3 mobame.py -s update
+  python3 mobame.py -s dl -g nogizaka46 -m 柴田柚菜
+  ```
+  
+その後、メッセージがダウンロードできます。
+• もし、「池田瑛紗」からのメッセージを取得なら
+  ```shell script
+  python3 -s dl -g 乃木坂46 -m 池田瑛紗 -d 2022-03-08
+  ```
+• 2つ以上もできます
+  ```shell script
+  python3 -s dl -g 乃木坂46 -m 池田瑛紗 川崎桜 -d 2022-03-08
+  ```
+• もし「2023-03-01」から「2023-03-10」までメッセージを取得したいなら
+  ```shell script
+  python3 -s dllist -g 乃木坂46 -m 池田瑛紗 -fd 2022-03-01 -td 2022-03-10
+  ```
