@@ -53,7 +53,7 @@
   "Telegram_Config": {
     "service": true,
     "servicemode": "prod", 
-    "botdebugtoken": "<you can leave it empty>", #example : d40f9901-10a1-4652-b2b4-47f7c20ef804
+    "botdebugtoken": "<you can leave it empty>",
     "botfinaltoken": "<YOUR BOT TOKEN HERE>",
     "ownerid": <YOUR ID>,
     "botdebuggroup": <you can leave it empty>,
