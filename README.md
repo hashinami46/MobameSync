@@ -10,9 +10,8 @@
 テレグラムにメッセージを同期することもできます。
 
 ## 特徴
-
--:white_check_mark: rootは必要ではありまでん
--:white_check_mark: Python3をサポートするすべての端末で実行できます
+- :white_check_mark:rootは必要ではありまでん
+- :white_check_mark:Python3をサポートするすべての端末で実行できます
 全てのメディアが取得できます
 
 ## 前提条件
