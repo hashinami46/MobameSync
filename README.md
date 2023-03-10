@@ -13,7 +13,7 @@
 テレグラムにメッセージを同期することもできます。
 
 ## 特徴
-* ✅ rootは必要ではありまでん
+* ✅ rootは必要ではありません
 * ✅ Python3をサポートするすべての端末で実行できます
 * ✅ 全てのメディアが取得できます
 
@@ -45,15 +45,16 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
-  リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
+    リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
+  **その前に**、botを必ず作ってください
   ```shell script
   ...
   "Telegram_Config": {
     "service": true,
     "servicemode": "prod", 
-    "botdebugtoken": "<you can leave it empty>",
+    "botdebugtoken": "<you can leave it empty>", #example : d40f9901-10a1-4652-b2b4-47f7c20ef804
     "botfinaltoken": "<YOUR BOT TOKEN HERE>",
     "ownerid": <YOUR ID>,
     "botdebuggroup": <you can leave it empty>,
@@ -106,6 +107,26 @@
   ```shell script
   python3 -s check -g 乃木坂46
   ```
+
+## テレグラムと同期設定
+**先ずは**その前の構成をチェックして、pythonでtelegrambot.pyを実行すること
+  ```shell script
+  cd ~/telegram
+  python3 telegrambot.py
+  ```
+その後, botfatherでbotのコマンドを設定
+  **AVAILABLE COMMAND**
+  - start - Botの紹介
+  - subsinfo - アクティブ購読情報
+  - tentang - botと開発者のこと
+  - konfigurasi - (所有者のみ) トグルサービス
+  - ceksyncstate - (所有者のみ) 同期ステータス情報
+  - startsync - (所有者のみ) 同期をはじめ
+  - stopsync - (所有者のみ) 同期を停止
+  - updatetoken - (所有者のみ) リフレッシュトケンをアップデート
+  - sendpastmessage - (所有者のみ) 新たな購読のメッセージをシェア
+  - sendlog - (所有者のみ) logging.logをダウンロード
+
 
 ## ライセンス
 
