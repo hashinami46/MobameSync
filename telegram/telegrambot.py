@@ -155,9 +155,9 @@ def bot_config(message):
     mobamebot.send_message(message.chat.id, text=configmessages, parse_mode="MarkdownV2", reply_markup=configkeyboard())
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
 
@@ -167,9 +167,9 @@ def startsynchronize(message):
     global syncstate
     syncstate = True
     msg = mobamebot.send_message(message.chat.id, text=syncstarted)
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     logging.info(f"✨ Sinkronisasi dimulai pada {WIB.strftime('%Y-%m-%d %H:%M:%S')} WIB")
     while syncstate:
       syncer()
@@ -178,9 +178,9 @@ def startsynchronize(message):
       pass
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
 
@@ -191,14 +191,14 @@ def stopsynchronize(message):
     syncstate = False
     logging.info(f"Sinkronisasi dihentikan pada {WIB.strftime('%Y-%m-%d %H:%M:%S')} WIB")
     msg = mobamebot.send_message(message.chat.id, text=syncstopped)
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
 
@@ -208,8 +208,8 @@ def update_token_func(message):
     textsplit = message.text.split()
     if syncstate:
         msg = mobamebot.send_message(chat_id=message.chat.id, text="Harap mematikan sinkronisasi terlebih dahulu!")
-        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
+        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
     if len(textsplit) == 3:
       grupname = textsplit[1]
@@ -224,30 +224,30 @@ def update_token_func(message):
       and len(reftoken.split('-')[4]) == 12:
         update_refresh_token(grupname, reftoken)
         msg = mobamebot.send_message(message.chat.id, text=refreshtokenupdated.replace('%grup%', grupname))
-        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
+        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
       if grupname not in sakamichigroups:
         msg = mobamebot.send_message(chat_id=message.chat.id, text="Format nama grup yang anda masukkan salah!")
-        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
+        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
       if len(reftoken.split('-')) != 5:
         msg = mobamebot.send_message(chat_id=message.chat.id, text="Format refresh token anda salah!")
-        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
+        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
     if len(textsplit) != 3\
     and not syncstate:
         msg = mobamebot.send_message(chat_id=message.chat.id, text="Format command salah!")
-        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
+        time.sleep(3)
         mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
 
@@ -261,14 +261,14 @@ def get_sub_info(message):
     if len(textsplit) != 2\
     or textsplit[1] not in sakamichigroups:
       msg = mobamebot.send_message(message.chat.id,text=incorrectsubsinfo)
+      mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
       time.sleep(5)
       mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
-      mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
   elif message.chat.id not in [ownerid, telechatid()]:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
   
@@ -298,28 +298,28 @@ def send_pastmessages(message):
       or textsplit[2] not in [member['name'].replace(' ','') for member in config['Sakamichi_App'][textsplit[1]]['telegram_services']['members']]\
       or syncstate:
         msg = mobamebot.send_message(message.chat.id, text="Maaf, nama grup yang anda masukkan salah! atau nama member yang anda masukkan tidak tersedia! Jangan lupa untuk mematikan sinkronisasi terlebih dahulu!")
+        mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
         time.sleep(3)
         mobamebot.delete_message(msg.chat.id, msg.message_id)
-        mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     if len(textsplit) != 3:
       msg = mobamebot.send_message(message.chat.id,text=incorrectsendpast)
+      mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
       time.sleep(5)
       mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id)
-      mobamebot.delete_message(chat_id=msg.chat.id, message_id=msg.message_id - 1)
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
 @mobamebot.message_handler(commands=['ceksyncstate'])
 def check_syncstate(message):
   if message.chat.id == ownerid:
     msg = mobamebot.send_message(message.chat.id, text=f"{'Sinkronisasi berjalan!' if syncstate else 'Sinkronisasi berhenti!'}")
-    time.sleep(5)
-    mobamebot.delete_message(msg.chat.id, msg.message_id)
     mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
+    time.sleep(3)
+    mobamebot.delete_message(msg.chat.id, msg.message_id)
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
     time.sleep(3)
@@ -330,15 +330,24 @@ def check_syncstate(message):
 @mobamebot.message_handler(commands=['sendlog'])
 def send_today_log(message):
   if message.chat.id == ownerid:
-    msg = mobamebot.send_document(message.chat.id, document=open(f"{ROOT_DIR}{logdir}/{datetime.datetime.now().strftime('%Y-%m-%d')}.log", "rb"))
+    msg = mobamebot.send_document(message.chat.id, document=open(f"{ROOT_DIR}{logdir}/logging.log", "rb"))
   else:
     msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     time.sleep(3)
     mobamebot.delete_message(msg.chat.id, msg.message_id)
-    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
     report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
   telemessagelogger(message)
-  
+@mobamebot.message_handler()
+def capture_unwanted(message):
+  if message.chat.id not in [ownerid, botdebuggroup, botfinalgroup]:
+    msg = mobamebot.send_message(message.chat.id, text=preventintruders, parse_mode="MarkdownV2")
+    mobamebot.delete_message(msg.chat.id, msg.message_id - 1)
+    time.sleep(3)
+    mobamebot.delete_message(msg.chat.id, msg.message_id)
+    report = mobamebot.send_message(ownerid, text=report_message(message), parse_mode="MarkdownV2")
+    telemessagelogger(message)
+ 
 # CALLBACK HANDLER SECTION
 @mobamebot.callback_query_handler(func=lambda message: True)
 def callback_option(call):
