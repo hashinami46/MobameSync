@@ -45,7 +45,7 @@
       "access_token": "<you can leave it empty>",
   ...
   ```
-    リフレッシュトケンを取得する方法は[こちら](https://home.gamer.com.tw/artwork.php?sn=5594412)へご覧ください。
+    リフレッシュトケンを取得する方法は[こちら](https://github.com/proshunsuke/colmsg/blob/main/doc/how_to_get_refresh_token.md)へご覧ください。
 
 5. テレグラムに同期したい場合は、config.jsonを以下のように編集してください。
   **その前に**、botを必ず作ってください
@@ -54,7 +54,7 @@
   "Telegram_Config": {
     "service": true,
     "servicemode": "prod", 
-    "botdebugtoken": "<you can leave it empty>", #example : d40f9901-10a1-4652-b2b4-47f7c20ef804
+    "botdebugtoken": "<you can leave it empty>", 
     "botfinaltoken": "<YOUR BOT TOKEN HERE>",
     "ownerid": <YOUR ID>,
     "botdebuggroup": <you can leave it empty>,
@@ -115,7 +115,7 @@
   python3 telegrambot.py
   ```
 その後, botfatherでbotのコマンドを設定
-  **AVAILABLE COMMAND**
+  **AVAILABLE COMMANDS**
   - start - Botの紹介
   - subsinfo - アクティブ購読情報
   - tentang - botと開発者のこと
