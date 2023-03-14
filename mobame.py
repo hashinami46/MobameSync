@@ -62,13 +62,14 @@ def dllist_result(args, choosedgroup, mainprogram):
   print(f" Already Downloaded      : {len(main.resultnokdl)} file(s)")
   print(f"Download saved at : {downloaddir}")
   print('=' * scrwidth)
-def update_subslist(args, choosedgroup, mainprogram):
+def update_subslist(args, choosedgroup, subprogram, mainprogram):
   print('=' * scrwidth)
   print(f"Queried at       : {NOW.strftime('%Y-%m-%d %H:%M:%S')}")
   print(f"Requested Group  : {choosedgroup}")
   print('=' * scrwidth)
-  mainprogram(main.GroupsPath, main.groups, logger=False)
-  mainprogram(main.MembersPath, main.members, logger=False)
+  subprogram(main.GroupsPath, main.groups, logger=False)
+  subprogram(main.MembersPath, main.members, logger=False)
+  mainprogram()
   print('=' * scrwidth)
 def check_subslist(choosedgroup, choosedgroupkanji):
   print('=' * scrwidth)
@@ -101,11 +102,11 @@ elif args.service in ['downloadlist', 'dllist'] and args.group in ['hinatazaka46
   dllist_result(args, '日向坂46', main.Hinatazaka.custmessage_downloader)
   
 elif args.service in ['updatesubslist', 'update'] and args.group in ['nogizaka46', '乃木坂46']:
-  update_subslist(args, '乃木坂46', main.Nogizaka.get_groups_or_members_lists)
+  update_subslist(args, '乃木坂46', main.Nogizaka.get_groups_or_members_lists, main.Nogizaka.get_subscribed_members)
 elif args.service in ['updatesubslist', 'update'] and args.group in ['sakurazaka46', '櫻坂46']:
-  update_subslist(args, '櫻坂46', main.Sakurazaka.get_groups_or_members_lists)
+  update_subslist(args, '櫻坂46', main.Sakurazaka.get_groups_or_members_lists, main.Sakurazaka.get_subscribed_members)
 elif args.service in ['updatesubslist', 'update'] and args.group in ['hinatazaka46', '日向坂46']:
-  update_subslist(args, '日向坂46', main.Hinatazaka.get_groups_or_members_lists)
+  update_subslist(args, '日向坂46', main.Hinatazaka.get_groups_or_members_lists, main.Hinatazaka.get_subscribed_members)
   
 elif args.service in ['checksubslist', 'check'] and args.group in ['nogizaka46', '乃木坂46']:
   check_subslist('nogizaka46', '乃木坂46')
